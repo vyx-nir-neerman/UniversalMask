@@ -80,9 +80,10 @@ def create_kmer_file(seq, k, out_fname):
     logger.info('writing %d-mers of %d bp sequence to %s', k, len(seq),
                 out_fname)
     kmer_num = 0
+    gap_kmer = 'N' * k
     with open(out_fname, 'w') as output_file:
         for i in range(len(seq) - k + 1):
-            if set(seq[i:i+k]) != {'N'}:
+            if seq[i:i+k] != gap_kmer:
                 output_file.write('>{}\n{}\n'.format(i, seq[i:i+k]))
                 kmer_num += 1
     logger.info('%d %d-mers were written', kmer_num, k)
